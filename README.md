@@ -1,71 +1,99 @@
 # Prisma Node JS Express RESTAPI
 
-## Overview
+## 📖 Overview  
 
 This Rest API is built with Node.js, Express, Prisma ORM, and PostgresQL. It provides CRUD functionality for a simple quotes application. Users can create, read, update, and delete quotes, as well as create and read authors and users.
 
-## Prerequisites
+## ✅ Prerequisites  
 
-Before running this Rest API, you need to have the following installed on your machine:
+Before you begin, ensure you have the following installed on your system: 
 
-- Node.js
-- PostgresQL
 
-## Installation
+1. **Node.js** (v18 or later) → [Download here](https://nodejs.org/)
+2. **PostgreSQL** (v14 or later) → [Download here](https://www.postgresql.org/download/)
+   - **Make sure PostgreSQL is running before proceeding.**
+3. **Git** (if not installed) → [Download here](https://git-scm.com/downloads)
 
-1. Clone this repository to your local machine
-2. Navigate to the cloned directory
-3. Run `npm install` to install all the necessary dependencies
-4. Create a `.env` file in the root directory of the project and set the following environment variables:
-   - DATABASE_URL: URL to your PostgresQL database
-   - PORT: Port number for the server to run on
-5. Run `npx prisma migrate dev` to apply the database schema to your database
-6. Run `npm start` to start the server
+## ⚙️ Installation
+### 🚀 Step 1: Clone the Project
+Open a terminal and run:
+```sh
+git clone https://github.com/your-repo.git
+cd your-repo
+```
+### 📦 Step 2: Install Dependencies
+Run the following command to install the required packages:
+```sh
+npm install
+```
+### 🛠️ Step 3: Configure Environment Variables
+1. Create a .env file in the root directory.
+2. Copy and paste the following into .env, then modify the values:
+```
+DATABASE_URL="postgresql://postgres:password@localhost:5432/mydatabase"
+SECRET_KEY="your-secret-key"
 
-## Endpoints
+```
+* Replace password with your PostgreSQL password.
+* Replace mydatabase with the database name.
 
-This Rest API has the following endpoints:
 
-### `/authors`
+### 📂 Step 4: Set Up the Database
+Run the setup script to create the database, apply migrations, and seed data:
 
-- `GET`: Get all authors
-- `POST`: Create a new author
+```
+npm run setup
+```
+#### 🔹 If you get an error, make sure PostgreSQL is running before retrying.
+#### 🔹 If your system does not recognize the `sh` command, run the command in Git Bash instead.
 
-### `/authors/:id`
+### 🔥 Step 5: Start the Server
+To start the backend server, run:
+```
+npm start
+```
 
-- `GET`: Get a specific author
-- `PUT`: Update a specific author
-- `DELETE`: Delete a specific author
+## ⚠️ Important  
 
-### `/quotes`
+Your frontend does **not** include a sign-up feature. Therefore, you need to add users manually. Here are three ways to do it:  
 
-- `GET`: Get all quotes
-- `POST`: Create a new quote
+### **1️⃣ Using Postman (Recommended)**  
+You can use Postman or any API client to create a new user by sending a `POST` request to the backend.  
 
-### `/quotes/:id`
+#### **Example Request (Sign Up a New User)**
+```http
+POST http://localhost:5000/api/auth/signup
+Content-Type: application/json
 
-- `GET`: Get a specific quote
-- `PUT`: Update a specific quote
-- `DELETE`: Delete a specific quote
+{
+  "username": "newuser",
+  "password": "securepassword",
+  "role": "admin"  // Options: "user", "admin"
+}
+```
+### 2️⃣ Using pgAdmin (Direct Database Entry)
+If you have pgAdmin installed, you can manually insert users into the database.
 
-### `/users`
+#### SQL Query to Insert a User
+```
+INSERT INTO "User" (username, password, role) 
+VALUES ('admin', '$2b$10$hashedpassword...', 'admin');
+```
+🔹 Note: The password must be hashed before storing in the database. Use bcrypt or Prisma's seed.js to generate hashed passwords.
 
-- `GET`: Get all users
+### 3️⃣ Using Prisma Seed Script (Automated Initialization)
+You can use the Prisma seed script to initialize default users and roles automatically.
 
-### `/users/signup`
-
-- `POST`: Create a new user
-
-### `/users/signin`
-
-- `POST`: login user
-
-### `/users/:id`
-
-- `GET`: Get a specific user
-- `PUT`: Update a specific user
-- `DELETE`: Delete a specific user
-
-### Render
-
-https://prisma-express-n397.onrender.com/
+#### Run the seed script:
+```
+npm run setup
+```
+#### This will create default users such as:
+```json
+[
+  { "username": "admin@example.com", "password": hashed password of "password", "role": "admin" },
+  { "username": "user1@example.com", "password": hashed password of "password", "role": "user" },
+  { "username": "user2@example.com", "password": hashed password of "password" "role": "user" }
+]
+```
+🔹 Tip: Modify prisma/seed.js to customize default users.

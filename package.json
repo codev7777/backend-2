@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --watch",
     "start": "nodemon index.js",
-    "db-migrate": "npx prisma migrate deploy"
+    "db-migrate": "npx prisma migrate deploy",
+    "setup": "sh setup-db.sh"
   },
   "prisma": {
     "seed": "node prisma/seed.js"

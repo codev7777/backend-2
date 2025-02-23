@@ -1,9 +1,19 @@
-# Prisma Node JS Express RESTAPI
+# Howldad Portal - Backend
 
 ## 📖 Overview  
 
-This Rest API is built with Node.js, Express, Prisma ORM, and PostgresQL. It provides CRUD functionality for a simple quotes application. Users can create, read, update, and delete quotes, as well as create and read authors and users.
+The Howldad Portal Backend is a Node.js and Express-based API that powers the Howldad Portal, a Next.js-based platform for managing various services and user access. This backend provides secure authentication and role-based access control using JWT and HTTP-only cookies.
+### Current Features
+#### ✅ User Authentication
 
+* Register, login, and manage users with role-based access control (Admin, User).
+* Secure password hashing with bcrypt.
+* JWT authentication with HTTP-only cookies.
+### Upcoming Features (Planned)
+#### 🔄 Service Management (CRUD Operations)
+
+* Admins can create, update, and delete services.
+* Users can view available services based on their access level.
 ## ✅ Prerequisites  
 
 Before you begin, ensure you have the following installed on your system: 
